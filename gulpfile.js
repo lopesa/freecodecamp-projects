@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 var jade = require('gulp-jade');
-// var sass = require('gulp-sass');
+var sass = require('gulp-sass');
 var connect = require('gulp-connect');
 var open = require('gulp-open');
 
@@ -11,7 +11,7 @@ var open = require('gulp-open');
 gulp.task('jade', function() {
   var YOUR_LOCALS = {};
  
-  gulp.src('./app/jade/*.jade')
+  gulp.src('./app/jade/**/*.jade')
     .pipe(jade({
       locals: YOUR_LOCALS,
       pretty: true
@@ -20,6 +20,17 @@ gulp.task('jade', function() {
     .pipe(connect.reload());
 });
 
+
+gulp.task('sass', function () {
+  gulp.src('./app/scss/**/*.scss')
+    // .pipe(sourcemaps.init())
+    .pipe(sass({
+      errLogToConsole: true
+      }))
+    // .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./app/css'))
+    .pipe(connect.reload());
+});
 
 gulp.task('connect', function() {
   connect.server({
@@ -41,10 +52,11 @@ gulp.task('open', function(){
 
 gulp.task('watch', function () {
   gulp.watch(['./app/jade/*.jade'], ['jade']);
+  gulp.watch('./app/scss/**/*.scss', ['sass']);
   gulp.watch('./app/js/*.js', function(event) {
     connect.reload();
   })
 });
 
 
-gulp.task('default', ['jade' ,'connect', 'open', 'watch']);
+gulp.task('default', ['jade' ,'sass', 'connect', 'open', 'watch']);

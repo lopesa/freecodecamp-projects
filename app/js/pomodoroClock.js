@@ -1,12 +1,11 @@
-var time = 5000
-var minutes;
-var seconds;
+var sessionTime = 1500000;
+var breakTime = 300000;
 
-function convertTime () {
-	// console.log(time);
+function convertTime (time) {
 	// console.log("Minutes = " + minutes + "\nseconds = " + seconds);
+	var minutes;
+	var seconds;
 	
-
 	// convert milliseconds to minutes and seconds
 	if (time >= 60000) {
 		minutes = Math.floor(time / 60000);
@@ -24,25 +23,47 @@ function convertTime () {
 	if (seconds < 10) {
 		seconds = "0" + seconds;
 	}
+
+	return [minutes, seconds];
 }
 
-function changeTimeDisplay () {
-	convertTime();
-	// $('#time').text(timeInSeconds);
-	$('#minutesDisplay').text(minutes);
-	$('#secondsDisplay').text(seconds);
+function changeTimeDisplay (whichClock) {
+	var sessionTimeDisplay = [];
+	var breakTimeDisplay = [];
+
+	if (whichClock === "session") {
+		sessionTimeDisplay = convertTime(sessionTime);
+		$('#sessionMinutesDisplay').text(sessionTimeDisplay[0]);
+		$('#sessionSecondsDisplay').text(sessionTimeDisplay[1]);
+	}
+	else {
+		breakTimeDisplay = convertTime(breakTime);
+		$('#breakMinutesDisplay').text(breakTimeDisplay[0]);
+		$('#breakSecondsDisplay').text(breakTimeDisplay[1]);
+	}
 }
 
 function addTime (event) {
-	time += event.data.time;
-	// console.log("time = " + time);
-	changeTimeDisplay();
+	// console.log(event.data.clock);
+	if (event.data.clock === "session") {
+		sessionTime += 60000;
+		changeTimeDisplay("session");
+	}
+	else {
+		breakTime += 60000;
+		changeTimeDisplay("break");
+	}
 }
 
 function subtractTime (event) {
-	time -= event.data.time;
-	// console.log("time = " + time);
-	changeTimeDisplay();
+	if (event.data.clock === "session") {
+		sessionTime -= 60000;
+		changeTimeDisplay("session");
+	}
+	else {
+		breakTime -= 60000;
+		changeTimeDisplay("break");
+	}
 }
 
 function startClock() {
@@ -61,11 +82,12 @@ function startClock() {
 
 $('#start-timer').on('click', startClock);
 
-$('#addSecond').on('click', {time: 1000}, addTime);
-$('#addMinute').on('click', {time: 60000}, addTime);
+$('#addSessionMinute').on('click', {clock: "session"}, addTime);
+$('#subtractSessionMinute').on('click', {clock: "session"}, subtractTime);
 
-$('#subtractSecond').on('click', {time: 1000}, subtractTime);
-$('#subtractMinute').on('click', {time: 60000}, subtractTime);
+$('#addBreakMinute').on('click', {clock: "break"}, addTime);
+$('#subtractBreakMinute').on('click', {clock: "break"}, subtractTime);
+
 
 
 

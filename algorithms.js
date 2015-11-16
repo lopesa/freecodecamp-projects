@@ -1,3 +1,43 @@
+function steamroller(arr) {
+	
+	var test = arr.filter(function(elem) {
+		return Array.isArray(elem)
+	});
+	
+	if (test.length === 0) {
+		return arr;
+	}
+
+	else {
+
+		var newArray = [];
+		
+		arr.forEach(function(elem) {
+			
+			if (Array.isArray(elem)) {
+				elem.forEach(function(subElem) {
+					newArray.push(subElem);
+				});
+			}
+			else {
+				newArray.push(elem);
+			}
+
+		});
+
+		return steamroller(newArray);
+	}
+}
+
+steamroller([1, [2], [3, [[4]]]]);
+
+
+
+
+
+
+
+
 function drop(arr, func) {
 	var i = 0;
 	originalArrayLength = arr.length;

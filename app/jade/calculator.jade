@@ -1,0 +1,54 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        title Calculator — Free Code Camp project
+
+        <!-- Bootstrap -->
+        //- link(href="css/bootstrap.min.css" rel="stylesheet")
+        link(href="./bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet")
+        link(href="./css/calculator.css" rel="stylesheet")
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    body
+        div(class="main-container center-block")
+            h2(id="display") 0
+            div
+                button(class="btn btn-default" onClick="enterNumber(this)") 7
+                button(class="btn btn-default" onClick="enterNumber(this)") 8
+                button(class="btn btn-default" onClick="enterNumber(this)") 9
+            div
+                button(class="btn btn-default" onClick="enterNumber(this)") 4
+                button(class="btn btn-default" onClick="enterNumber(this)") 5
+                button(class="btn btn-default" onClick="enterNumber(this)") 6
+            div
+                button(class="btn btn-default" onClick="enterNumber(this)") 1
+                button(class="btn btn-default" onClick="enterNumber(this)") 2
+                button(class="btn btn-default" onClick="enterNumber(this)") 3
+            div
+                button(class="btn btn-default" onClick="setOperater('add')") +
+                button(class="btn btn-default" onClick="setOperater('subtract')") -
+                button(class="btn btn-default" onClick="setOperater('multiply')") *
+                button(class="btn btn-default" onClick="setOperater('divide')") /
+            div
+                button(class="btn btn-default" onClick="doMath()") =
+                
+
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        script(src="./bower_components/jquery/dist/jquery.js")
+        //- script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        script(src="./bower_components/bootstrap/dist/js/bootstrap.js")
+        script(src="./js/calculator.js")
+        //- script(src="js/bootstrap.min.js")

@@ -51,7 +51,7 @@ gulp.task('open', function(){
 
 
 gulp.task('watch', function () {
-  gulp.watch(['./app/jade/*.jade'], ['jade']);
+  gulp.watch(['./app/jade/**/*.jade'], ['jade']);
   gulp.watch('./app/scss/**/*.scss', ['sass']);
   gulp.watch('./app/js/*.js', function(event) {
     connect.reload();

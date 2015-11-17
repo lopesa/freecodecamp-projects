@@ -8,6 +8,7 @@ var temp;
 var weatherDescription;
 var windSpeed;
 var windDirection;
+var iconUrl;
 
 // convert degrees to direction.
 function windDirectionConverter(degrees) {
@@ -81,7 +82,7 @@ if (navigator.geolocation) {
 		weatherApiUrl = "http://api.openweathermap.org/data/2.5/weather?units=imperial&lat="
 		+ latitude + "&lon=" + longitude + "&APPID=7633bce24e83d201aa0190f0052944fa";
 		
-		// console.log(weatherApiUrl);
+		console.log(weatherApiUrl);
 
 		$.getJSON( weatherApiUrl, function( data ) {
 
@@ -90,12 +91,14 @@ if (navigator.geolocation) {
 			windSpeed = data.wind.speed  + " mph";
 			windDirection = data.wind.deg;
 			weatherDescription = data.weather[0].description;
+			iconUrl = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
 
 			console.log(temp);
 			console.log(city);
 			console.log(windSpeed);
 			console.log(windDirectionConverter(windDirection));
 			console.log(weatherDescription);
+			console.log(iconUrl);
 
 			
 			// google reverse geocoding

@@ -11,7 +11,7 @@ var open = require('gulp-open');
 gulp.task('jade', function() {
   var YOUR_LOCALS = {};
  
-  gulp.src('./app/jade/**/*.jade')
+  gulp.src('./app/jade/*.jade')
     .pipe(jade({
       locals: YOUR_LOCALS,
       pretty: true
@@ -51,7 +51,7 @@ gulp.task('open', function(){
 
 
 gulp.task('watch', function () {
-  gulp.watch(['./app/jade/**/*.jade'], ['jade']);
+  gulp.watch(['./app/jade/*.jade'], ['jade']);
   gulp.watch('./app/scss/**/*.scss', ['sass']);
   gulp.watch('./app/js/*.js', function(event) {
     connect.reload();

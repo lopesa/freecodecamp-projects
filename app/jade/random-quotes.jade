@@ -10,6 +10,7 @@ html(lang="en")
     <!-- Bootstrap -->
     //- link(href="css/bootstrap.min.css" rel="stylesheet")
     link(href="./bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet")
+    //- link(href="./css/random-quotes.css" rel="stylesheet")
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,7 +19,19 @@ html(lang="en")
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   body
-    h1 Random Quotes
+    div(class="container center-block" style="width: 90%;")
+        .row
+            .col-sm-2
+            .col-sm-8
+                //- h3(class="text-center") Random Quotes
+                h3 Best Code Comments Collection
+                .row
+                    .col-sm-1
+                        button(id="new-quote" class="btn btn-success btn-xs") &orarr;
+                    .col-sm-11
+                        p(id="quote")
+                
+            .col-sm-2
     //- span(style="z-index:50;font-size:0.9em;")
     //-     img(src="http://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com")
     //- a(href="http://theysaidso.com" title="Powered by quotes from theysaidso.com" style="color: #9fcc25; margin-left: 4px; vertical-align: middle;") theysaidso.com

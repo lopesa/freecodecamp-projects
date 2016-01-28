@@ -1,3 +1,7 @@
+///////////////////////////////////////////////////////////////////
+// Flatten a nested array. You must account for varying levels of nesting.
+///////////////////////////////////////////////////////////////////
+
 function steamroller(arr) {
 	
 	var test = arr.filter(function(elem) {
@@ -29,6 +33,7 @@ function steamroller(arr) {
 	}
 }
 
+// test
 steamroller([1, [2], [3, [[4]]]]);
 
 
@@ -36,7 +41,12 @@ steamroller([1, [2], [3, [[4]]]]);
 
 
 
+///////////////////////////////////////////////////////////////////
+// Drop the elements of an array (first argument),
+// starting from the front, until the predicate (second argument) returns true.
 
+// Return the rest of the array, otherwise return an empty array.
+///////////////////////////////////////////////////////////////////
 
 function drop(arr, func) {
 	var i = 0;
@@ -54,6 +64,8 @@ function drop(arr, func) {
 	return arr;
 }
 
+// test
+
 drop([1, 2, 3, 4], function(n) {return n >= 3;}) // [3,4]
 
 
@@ -63,12 +75,17 @@ drop([1, 2, 3, 4], function(n) {return n >= 3;}) // [3,4]
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Create a function that looks through an array (first argument)
+// and returns the first element in the array that passes a truth test (second argument).
+///////////////////////////////////////////////////////////////////
 
 function find(arr, func) {
 	arr = arr.filter(func);
 	return arr[0]
 }
+
+// test
 
 find([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
@@ -76,7 +93,11 @@ find([1, 2, 3, 4], function(num){ return num % 2 === 0; });
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Find the smallest common multiple of the provided parameters
+// that can be evenly divided by both, as well as by all
+// sequential numbers in the range between these parameters.
+///////////////////////////////////////////////////////////////////
 
 function smallestCommons(arr) {
 	// build the array from the endpoints
@@ -121,7 +142,7 @@ function smallestCommons(arr) {
 // throws stack overflow @ smallestCommons([1,10]);, but not smallestCommons([1,9]);
 // so, I solved this above NOT using recursion. Was using recursion not possible
 // on this one?
-function smallestCommons(arr) {
+function smallestCommonsNOTWORKING(arr) {
 	// build the array from the endpoints
 	var small;
 	var big;
@@ -172,6 +193,7 @@ function smallestCommons(arr) {
 	return testTheArray(fullArr, 1);
 }
 
+// test 
 
 smallestCommons([1,5]);
 
@@ -180,7 +202,9 @@ smallestCommons([1,5]);
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Sum all primes
+///////////////////////////////////////////////////////////////////
 
 function sumPrimes(num) {
 	var sum = 2
@@ -211,10 +235,15 @@ function sumPrimes(num) {
 }
 
 
+// test
 sumPrimes(10);
 
 
 
+
+///////////////////////////////////////////////////////////////////
+// Sum all odd Fibonacchi Numbers
+///////////////////////////////////////////////////////////////////
 
 function sumFibs(num) {
 	
@@ -243,13 +272,17 @@ function sumFibs(num) {
 	return internal(sequence);;
 }
 
+// test
 sumFibs(4);
 
 
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Convert a string to spinal case.
+// Spinal case is all-lowercase-words-joined-by-dashes.
+///////////////////////////////////////////////////////////////////
 
 function spinalCase(str) {
 	// "It's such a fine line between stupid, and clever."
@@ -311,10 +344,16 @@ function spinalCase(str) {
 	return str;
 }
 
-
+// test
 spinalCase('This Is Spinal Tap');
 
 
+
+
+///////////////////////////////////////////////////////////////////
+// Convert the characters &, <, >, " (double quote),
+// and ' (apostrophe), in a string to their corresponding HTML entities.
+///////////////////////////////////////////////////////////////////
 
 function convert(str) {
 
@@ -350,12 +389,17 @@ function convert(str) {
 	return str;
 }
 
+// test
 convert("Dolce & Gabbana");
 
 
 
 
 
+///////////////////////////////////////////////////////////////////
+// Write a function that takes two or more arrays and returns a new array
+// of unique values in the order of the original provided arrays.
+///////////////////////////////////////////////////////////////////
 
 function unite(arr1, arr2, arr3) {
 
@@ -392,6 +436,7 @@ function unite(arr1, arr2, arr3) {
 
 }
 
+// test
 unite([1, 3, 2], [5, 2, 1, 4], [2, 1]);
 
 
@@ -399,7 +444,9 @@ unite([1, 3, 2], [5, 2, 1, 4], [2, 1]);
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Check if a value is classified as a boolean primitive. Return true or false.
+///////////////////////////////////////////////////////////////////
 
 function boo(bool) {
 	if (bool === true || bool === false) {
@@ -410,12 +457,15 @@ function boo(bool) {
 	return bool;
 }
 
+// test
 boo(null);
 
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Find the missing letter in the passed letter range and return it.
+///////////////////////////////////////////////////////////////////
 
 function fearNotLetter(str) {
 	var i = 0;
@@ -434,12 +484,16 @@ function fearNotLetter(str) {
 	}		
 }
 
+// test
 fearNotLetter("abce");
 
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// The DNA strand is missing the pairing element.
+// Take each character, get its pair, and return the results as a 2d array.
+///////////////////////////////////////////////////////////////////
 
 function pair(str) {
 	str = str.split("");
@@ -465,12 +519,15 @@ function pair(str) {
 	return str;
 }
 
+// test
 pair("GCG");
 
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Translate the provided string to pig latin.
+///////////////////////////////////////////////////////////////////
 
 function translate(str) {
 	// do all ops on string before converting to array
@@ -496,11 +553,16 @@ function translate(str) {
 	return str;
 }
 
+
+// test
 translate("consonant");
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Perform a search and replace on the sentence using the arguments provided
+// and return the new sentence.
+///////////////////////////////////////////////////////////////////
 
 function myReplace(str, before, after) {
 	str = str
@@ -519,6 +581,7 @@ function myReplace(str, before, after) {
 	return str;
 }
 
+// test
 myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
 
 
@@ -526,7 +589,11 @@ myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Make a function that looks through an array of objects (first argument)
+// and returns an array of all objects that have matching property
+// and value pairs (second argument).
+///////////////////////////////////////////////////////////////////
 
 function where(collection, source) {
 	var arr = [];
@@ -558,13 +625,15 @@ function where(collection, source) {
 	return arr;
 }
 
-
+// test
 where([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
 
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Roman numeral converter
+///////////////////////////////////////////////////////////////////
 
 function convert(num) {
 	var buildupArray = [];
@@ -616,12 +685,14 @@ function convert(num) {
 	return num;
 }
 
+// test
 convert(36);
 
 
 
-
-
+///////////////////////////////////////////////////////////////////
+// Diff two arrays
+///////////////////////////////////////////////////////////////////
 
 function diff(arr1, arr2) {
 	var newArr = [];
@@ -641,12 +712,15 @@ function diff(arr1, arr2) {
 	return newArr.concat(compare(arr1, arr2), compare(arr2, arr1));
 }
 
+// test
 diff([1, 2, 3, 5], [1, 2, 3, 4, 5]);
 
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Sum All Numbers in a Range
+///////////////////////////////////////////////////////////////////
 
 function sumAll(arr) {
 	var max = Math.max.apply(null, arr);
@@ -670,6 +744,7 @@ function sumAll(arr) {
 	return finalSum;
 }
 
+// test
 sumAll([1, 4]);
 
 
@@ -677,7 +752,11 @@ sumAll([1, 4]);
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Return the lowest index at which a value (second argument)
+// should be inserted into an array (first argument)
+// once it has been sorted.
+///////////////////////////////////////////////////////////////////
 
 function where(arr, num) {
 	var n = 0
@@ -692,12 +771,16 @@ function where(arr, num) {
 	return n;
 }
 
+// test
 where([40, 60], 50);
 
 
 
 
-
+///////////////////////////////////////////////////////////////////
+// Remove all elements from an array that are of the same value
+// as any number of arguments
+///////////////////////////////////////////////////////////////////
 
 function destroyer(arr) {
 	// standard line to convert from arguments sorta array
@@ -714,14 +797,15 @@ function destroyer(arr) {
 	return finalArray;
 }
 
+// test
 destroyer([1, 2, 3, 1, 2, 3], 2, 3);
 
 
 
 
-
-
-
+///////////////////////////////////////////////////////////////////
+// Remove all falsy values from an array.
+///////////////////////////////////////////////////////////////////
 
 function bouncer(arr) {
 	arr = arr.filter(function(elem) {
@@ -730,6 +814,7 @@ function bouncer(arr) {
 	return arr;
 }
 
+// test
 bouncer([7, "ate", "", false, 9]);
 
 
@@ -737,8 +822,11 @@ bouncer([7, "ate", "", false, 9]);
 
 
 
-
-
+///////////////////////////////////////////////////////////////////
+// Return true if the string in the first element of the array
+// contains all of the letters of the string in the
+// second element of the array
+///////////////////////////////////////////////////////////////////
 
 function mutation(arr) {
 	var contains = arr[0].toLowerCase().split("");
@@ -756,13 +844,15 @@ function mutation(arr) {
 	return arr;
 }
 
+// test
 mutation(["hello", "hey"]);
 
 
 
 
-
-
+///////////////////////////////////////////////////////////////////
+// Return the remaining elements of an array after chopping off n elements from the head.
+///////////////////////////////////////////////////////////////////
 
 function slasher(arr, howMany) {
 	arr.length > howMany ? arr = arr.slice(howMany, arr.length) : arr = [];
@@ -770,13 +860,15 @@ function slasher(arr, howMany) {
 	return arr;
 }
 
+// test
 slasher([1, 2, 3], 2);
 
 
 
 
-
-
+///////////////////////////////
+// splits an array into groups
+///////////////////////////////
 
 function chunk(arr, size) {
 
@@ -803,15 +895,16 @@ function chunk(arr, size) {
 	return arr;
 }
 
+// test
 chunk(["a", "b", "c", "d"], 2);
 
 
 
 
 
-
-
-
+///////////////////////////////
+// Repeat a string
+///////////////////////////////
 
 function truncate(str, num) {
 	if (str.length > num){
@@ -829,12 +922,9 @@ truncate("A-tisket a-tasket A green and yellow basket", 11);
 
 
 
-
-
-
-
-
-
+///////////////////////////////
+// Repeat a string
+///////////////////////////////
 
 function repeat(str, num) {
 	var args = [];
@@ -846,16 +936,21 @@ function repeat(str, num) {
   return str;
 }
 
+// test
 repeat("abc", 3);
 
 
 
 
+///////////////////////////////
+// Check if a string (first argument) ends with the given target string
+///////////////////////////////
 
 function end(str, target) {
 	return str.substr(-target.length, target.length) === target ? true : false;
 }
 
+// test
 end("Bastian", "n");
 
 
@@ -863,7 +958,9 @@ end("Bastian", "n");
 
 
 
-
+///////////////////////////////
+// Return largest numbers in arrays
+///////////////////////////////
 
 function largestOfFour(arr) {
 	arr = arr.map(function(a) {
@@ -876,14 +973,15 @@ function largestOfFour(arr) {
   return arr;
 }
 
-
+// test
 largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]]);
 
 
 
 
-
-
+///////////////////////////////
+// Title case a sentence
+///////////////////////////////
 
 function titleCase(str) {
 	str = str
@@ -898,14 +996,15 @@ function titleCase(str) {
   return str;
 }
 
+// test
 titleCase("I'm a little tea pot");
 
 
 
 
-
-
-
+///////////////////////////////
+// Find the longest word in a string
+///////////////////////////////
 
 function findLongestWord(str) {
 	str.split(" ").reduce(function(a,b){
@@ -920,8 +1019,15 @@ function reverseString(str) {
   return str;
 }
 
+// test
 reverseString("A man, a plan, a canal. Panama");
 
+
+
+
+///////////////////////////////
+// Factorialize a number
+///////////////////////////////
 
 function factorialize(num) {
 	var temp = 1;
@@ -933,8 +1039,15 @@ function factorialize(num) {
   return num;
 }
 
+// test
 factorialize(5);
 
+
+
+
+///////////////////////////////
+// Check for palindromes
+///////////////////////////////
 
 function palindrome(str) {
 
@@ -949,20 +1062,26 @@ function palindrome(str) {
 
 	if (revStr === cleanString) {
 
-		// Good luck!
 		return true;
 	}
 	else {return false;}
 }
 
-
-
+// test
 palindrome("eye");
 
+
+
+///////////////////////////////
+// Reverse a string
+///////////////////////////////
 
 function reverseString(intstr) {
 	var intstr = intstr.toLowerCase().replace(/[^A-Za-z0-9]/gi, "").split("").reverse().join("");
 	return intstr;
 }
 reverseString();
+
+// test
+reverseString("hello");
 

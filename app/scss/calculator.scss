@@ -1,3 +1,90 @@
-.main-container {
-	width: 250px;
+$pomodoro-red: rgba(232, 38, 75, 1);
+$red: rgba(232, 94, 119, 1);
+$light-red: rgba(244, 176, 189, 1);
+
+$plum: rgba(186, 106, 121, 1);
+
+$blue: rgba(88, 164, 217, 1);
+
+$green: rgba(88, 217, 160, 1);
+$light-green: rgba(171, 236, 207, 1);
+$lime-green: rgba(141, 225, 91, 1);
+$light-lime-green: rgba(201, 241, 177, 1);
+
+$warm-grey: rgba(169, 164, 165, 1);
+$light-warm-grey: rgba(232, 228, 225, 1);
+
+$white: rgba(255, 255, 255, 1);
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.calc {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+
+	width: 320px;
+	height: 320px;
+	// background-color: $light-warm-grey;
+	margin-top: -20%;
+
+	cursor: pointer;
+
+	#display {
+		font-family: sans-serif;
+		font-size: 4em;
+		font-weight: 100;
+		height: 100px;
+		width: 100%;
+		line-height: 100px;
+		text-align: right;
+		padding: 5px;
+		background-color: $warm-grey;
+		color: $white;
+		margin-bottom: 10px
+	}
+
+	.row {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+
+		button {
+			font-size: 3em;
+			font-weight: 100;
+			color: $blue;
+			background-color: $light-warm-grey;
+			height: 80px;
+
+			transition: all 0.3s ease-out;
+
+			&.single {
+				width: 80px;
+				// flex-basis: 1;
+			}
+			&.double {
+				width: 160px;
+			}
+			&:hover {
+				background-color: $blue;
+				color: $white;
+				transition: all 0.2s ease-out;
+			}
+			&:active {
+				background-color: $red;
+				color: $white;
+				transition: all 0.3s ease-out;
+			}
+
+		}
+	}
+
+	
 }

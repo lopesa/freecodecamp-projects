@@ -9,7 +9,7 @@ html(lang="en")
 
         <!-- Bootstrap -->
         //- link(href="css/bootstrap.min.css" rel="stylesheet")
-        link(href="./bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet")
+        //- link(href="./bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet")
         link(href="./css/calculator.css" rel="stylesheet")
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -20,27 +20,33 @@ html(lang="en")
         <![endif]-->
 
     body
-        div(class="main-container center-block")
-            h2(id="display") 0
-            div
-                button(class="btn btn-default" onClick="enterNumber(this)") 7
-                button(class="btn btn-default" onClick="enterNumber(this)") 8
-                button(class="btn btn-default" onClick="enterNumber(this)") 9
-            div
-                button(class="btn btn-default" onClick="enterNumber(this)") 4
-                button(class="btn btn-default" onClick="enterNumber(this)") 5
-                button(class="btn btn-default" onClick="enterNumber(this)") 6
-            div
-                button(class="btn btn-default" onClick="enterNumber(this)") 1
-                button(class="btn btn-default" onClick="enterNumber(this)") 2
-                button(class="btn btn-default" onClick="enterNumber(this)") 3
-            div
-                button(class="btn btn-default" onClick="setOperater('add')") +
-                button(class="btn btn-default" onClick="setOperater('subtract')") -
-                button(class="btn btn-default" onClick="setOperater('multiply')") *
-                button(class="btn btn-default" onClick="setOperater('divide')") /
-            div
-                button(class="btn btn-default" onClick="doMath()") =
+        .calc
+            #display 0
+            .row
+                button(class="single" onClick="setDisplay(0)") AC
+                button(class="single" onClick="posNeg()") +/-
+                button(class="single" onClick="percent()") %
+                button(class="single" onClick="setOperater('divide')") &divide;
+            .row
+                button(class="single" onClick="enterNumber(this)") 7
+                button(class="single" onClick="enterNumber(this)") 8
+                button(class="single" onClick="enterNumber(this)") 9
+                button(class="single" onClick="setOperater('multiply')") &times;
+            .row
+                button(class="single" onClick="enterNumber(this)") 4
+                button(class="single" onClick="enterNumber(this)") 5
+                button(class="single" onClick="enterNumber(this)") 6
+                button(class="single" onClick="setOperater('subtract')") -
+            .row
+                button(class="single" onClick="enterNumber(this)") 1
+                button(class="single" onClick="enterNumber(this)") 2
+                button(class="single" onClick="enterNumber(this)") 3
+                //- button(class="single" onClick="setOperater(+)") +
+                button(class="single" onClick="setOperater('add')") +
+            .row
+                button(class="double" onClick="enterNumber(this)") 0
+                button(class="single" onClick="enterNumber(this)") .
+                button(class="single" onClick="doMath()") =
                 
 
 
@@ -49,6 +55,6 @@ html(lang="en")
         script(src="./bower_components/jquery/dist/jquery.js")
         //- script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        script(src="./bower_components/bootstrap/dist/js/bootstrap.js")
+        //- script(src="./bower_components/bootstrap/dist/js/bootstrap.js")
         script(src="./js/calculator.js")
         //- script(src="js/bootstrap.min.js")

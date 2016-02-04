@@ -1,11 +1,139 @@
+$pomodoro-red: rgba(232, 38, 75, 1);
+
+$light-red: rgba(252, 231, 235, 1);
+$red-10: rgba(232, 94, 119, 0.1);
+$red: rgba(232, 94, 119, 1);
+
+$light-green: rgba(214, 239, 226, 1);
+$green-30: rgba(88, 217, 160, 0.3);
+$green: rgba(88, 217, 160, 1);
+
+$yellow: rgba(255, 240, 206, 1);
+
+
+$dark-red: rgba(176, 79, 97, 1);
+
+$plum: rgba(186, 106, 121, 1);
+
+$blue: rgba(88, 164, 217, 1);
+// $light-green: rgba(171, 236, 207, 1);
+
+$lime-green: rgba(141, 225, 91, 1);
+$light-lime-green: rgba(201, 241, 177, 1);
+// $light-lime-green: rgba(241, 241, 210, 1);
+
+$warm-grey: rgba(169, 164, 165, 1);
+$light-warm-grey: rgba(232, 228, 225, 1);
+
+$white: rgba(255, 255, 255, 1);
+
+
+.pomodoro {
+	color: $pomodoro-red;
+	display: inline-block;
+}
+
+#stopStart {
+	// width: 100%;
+	color: $red;
+	font-weight: 200;
+	font-size: 1.2em;
+	width: 120px;
+	height: 60px;
+	background-color: $light-warm-grey;
+	// border: 1px solid $lime-green;
+	text-align: center;
+	line-height: 58px;
+	// margin: 5px 8px;
+	margin-top: 20px;
+	margin-right: 40px;
+	cursor: pointer;
+
+	&:hover {
+		background-color: $warm-grey;
+		color: $white;
+		// font-weight: 200;
+	}
+}
+
+.setting-block {
+	margin-top: 15px;
+	color: $warm-grey;
+
+	button {
+		color: $warm-grey;
+	}
+}
+
+@mixin running-time-display {
+	// margin-bottom: 25px;
+	font-size: 8em;
+	font-weight: 100;
+	color: $white;
+	line-height: 1.2em;
+}
+
+#session-bar-container, #break-bar-container {
+	// background-color: $yellow;
+	border: 1px solid $yellow;
+	padding: 10px 10px;
+	// margin-bottom: 10px;
+}
+
 #session-bar {
-	// height: 10px;
-	border: 1px solid red;
-	margin-bottom: 25px;
+	background-color: $light-red;
+	// border: 1px solid $red;
+	@include running-time-display;
+}
+
+#session-bar-indicator {
+	background-color: $red-10;
+	// width: 30%;
+	// height
+}
+
+#session-bar-remainder-indicator {
+	// width: 10%;
+	background-color: $red;
+	// padding-left: 10px;
 }
 
 #break-bar {
-	// height: 10px;
-	border: 1px solid green;
-	margin-bottom: 25px;
+	background-color: $light-green;
+	// border: 1px solid $lightgreen;
+	@include running-time-display;
+}
+
+#break-bar-indicator {
+	background-color: $green-30;
+	// width: 30%;
+	// height
+}
+
+#break-bar-remainder-indicator {
+	background-color: $green;
+	// padding-left: 10px;
+	// width: 30%;
+	// height
+}
+
+
+@mixin set-minute-display {
+	font-size: 5em;
+	vertical-align: middle;
+	font-weight: 100;
+	margin-right: 0.1em;
+	float: right;
+	color: $warm-grey;
+}
+
+#sessionSetMinutesDisplay {
+	@include set-minute-display;
+	// color: $red;
+
+}
+
+#breakSetMinutesDisplay {
+	@include set-minute-display;
+	// color: $green;
 }

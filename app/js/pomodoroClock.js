@@ -1,5 +1,22 @@
-var sessionTime = 1500000;
-var breakTime = 300000;
+// set times and running times in microseconds
+var sessionSetTime = 10000;
+// var sessionSetTime= 6000000;
+var breakSetTime = 5000;
+
+var sessionTime = sessionSetTime;
+var breakTime = breakSetTime;
+
+
+// displayed times in an array of minutes and seconds
+var sessionTimeDisplay = [];
+var breakTimeDisplay = [];
+var sessionSetTimeDisplay = [];
+var breakSetTimeDisplay = [];
+
+var activeClock = 'session';
+var clockRunning = false;
+var timeoutID;
+
 
 function convertTime (time) {
 	// console.log("Minutes = " + minutes + "\nseconds = " + seconds);
@@ -28,65 +45,182 @@ function convertTime (time) {
 }
 
 function changeTimeDisplay (whichClock) {
-	var sessionTimeDisplay = [];
-	var breakTimeDisplay = [];
-
+	
 	if (whichClock === "session") {
 		sessionTimeDisplay = convertTime(sessionTime);
 		$('#sessionMinutesDisplay').text(sessionTimeDisplay[0]);
 		$('#sessionSecondsDisplay').text(sessionTimeDisplay[1]);
 	}
-	else {
+	else if (whichClock === "sessionSet") {
+		sessionSetTimeDisplay = convertTime(sessionSetTime);
+		$('#sessionSetMinutesDisplay').text(sessionSetTimeDisplay[0]);
+		$('#sessionSetSecondsDisplay').text(sessionSetTimeDisplay[1]);
+	}
+	else if (whichClock === "break") {
 		breakTimeDisplay = convertTime(breakTime);
 		$('#breakMinutesDisplay').text(breakTimeDisplay[0]);
 		$('#breakSecondsDisplay').text(breakTimeDisplay[1]);
+	}
+	else {
+		breakSetTimeDisplay = convertTime(breakSetTime);
+		$('#breakSetMinutesDisplay').text(breakSetTimeDisplay[0]);
+		$('#breakSetSecondsDisplay').text(breakSetTimeDisplay[1]);
 	}
 }
 
 function addTime (event) {
 	// console.log(event.data.clock);
-	if (event.data.clock === "session") {
-		sessionTime += 60000;
-		changeTimeDisplay("session");
-	}
-	else {
-		breakTime += 60000;
-		changeTimeDisplay("break");
+	if (clockRunning === false) {
+		if (event.data.clock === "session") {
+			sessionSetTime += 60000
+			sessionTime = sessionSetTime;
+			changeTimeDisplay("session");
+			changeTimeDisplay("sessionSet");
+		}
+		else {
+			breakSetTime += 60000;
+			breakTime = breakSetTime;
+			changeTimeDisplay("break");
+			changeTimeDisplay("breakSet");
+		}
 	}
 }
 
 function subtractTime (event) {
-	if (event.data.clock === "session") {
-		sessionTime -= 60000;
-		changeTimeDisplay("session");
-	}
-	else {
-		breakTime -= 60000;
-		changeTimeDisplay("break");
+	if (clockRunning === false) {
+		if (event.data.clock === "session") {
+			if (sessionSetTime > 60000) {
+				sessionSetTime -= 60000;
+				sessionTime = sessionSetTime;
+				changeTimeDisplay("session");
+				changeTimeDisplay("sessionSet");
+			}
+		}
+		else {
+			if (breakSetTime > 60000) {
+				breakSetTime -= 60000;
+				breakTime = breakSetTime;
+				changeTimeDisplay("break");
+				changeTimeDisplay("breakSet");
+			}
+		}
 	}
 }
 
-function startClock() {
-	if (time === 0) {
-		console.log("ring!");
-		return;
+function runSessionClock() {
+	sessionTime -= 1000;
+
+	if (sessionTime === 0) {
+		changeTimeDisplay('session');
+		changeIndicatorBar('session');
+		console.log('ring');
+
+		timeoutID = window.setTimeout(function() {
+			sessionTime = sessionSetTime;
+			changeTimeDisplay('session');
+			activeClock = 'break';
+			runBreakClock();
+		}, 1000)
 	}
+
 	else {
-		time -= 1000
-		changeTimeDisplay();
-		window.setTimeout(function() {
-			startClock();
+		changeTimeDisplay('session');
+		changeIndicatorBar('session');
+		timeoutID = window.setTimeout(function() {
+			runSessionClock();
 		}, 1000)
 	}
 }
 
-$('#start-timer').on('click', startClock);
+function runBreakClock() {
+	breakTime -= 1000
 
-$('#addSessionMinute').on('click', {clock: "session"}, addTime);
-$('#subtractSessionMinute').on('click', {clock: "session"}, subtractTime);
+	if (breakTime === 0) {
+		changeTimeDisplay('break');
+		changeIndicatorBar('break');
+		console.log('ring');
 
-$('#addBreakMinute').on('click', {clock: "break"}, addTime);
-$('#subtractBreakMinute').on('click', {clock: "break"}, subtractTime);
+		timeoutID = window.setTimeout(function() {
+			breakTime = breakSetTime;
+			changeTimeDisplay('break');
+			activeClock = 'session';
+			runSessionClock();
+		}, 1000)
+	}
+	else {
+		
+		changeTimeDisplay('break');
+		changeIndicatorBar('break');
+		timeoutID = window.setTimeout(function() {
+			runBreakClock();
+		}, 1000)
+	}
+}
+
+function toggleClock() {
+	if (clockRunning === false) {
+		if (activeClock === 'session') {
+			runSessionClock();
+		}
+		else {
+			runBreakClock();
+		}
+		clockRunning = true;
+	}
+	else {
+		window.clearTimeout(timeoutID); // will do nothing if no timeout with id is present
+		clockRunning = false;
+	}
+}
+
+function setSessionBarWidth() {
+	var sessionPercent = Math.round(breakSetTime / sessionSetTime * 1000) / 10 + '%';
+	$('#break-bar-indicator').css('width', sessionPercent)
+	// console.log(sessionPercent);
+}
+
+function changeIndicatorBar(clock) {
+	if (clock === 'session') {
+		var percent = sessionTime / sessionSetTime * 100 + '%'; 
+		$('#session-bar-remainder-indicator').css('width', percent);
+		console.log(percent)
+	}
+	else {
+		var percent = breakTime / breakSetTime * 100 + '%'; 
+		$('#break-bar-remainder-indicator').css('width', percent);
+		console.log(percent)
+	}
+}
+
+
+changeTimeDisplay('session');
+changeTimeDisplay('sessionSet');
+changeTimeDisplay('break');
+changeTimeDisplay('breakSet');
+
+setSessionBarWidth();
+
+$('#stopStart').on('click', toggleClock);
+
+// $('#addSessionMinute').on('click', {clock: "session"}, addTime);
+$('#addSessionMinute').on('click', {clock: "session"}, function(e){
+	addTime(e);
+	setSessionBarWidth(e);
+});
+$('#subtractSessionMinute').on('click', {clock: "session"}, function(e){
+	subtractTime(e);
+	setSessionBarWidth(e);
+});
+
+$('#addBreakMinute').on('click', {clock: "break"}, function(e){
+	addTime(e);
+	setSessionBarWidth(e);
+});
+$('#subtractBreakMinute').on('click', {clock: "break"}, function(e){
+	subtractTime(e);
+	setSessionBarWidth(e);
+});
+
 
 
 

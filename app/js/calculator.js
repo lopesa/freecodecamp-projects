@@ -1,6 +1,6 @@
 var display = 0;
 var operater = false;
-var firstOperand;
+var firstOperand = false;
 
 function enterNumber(elem) {
 	var value = $(elem).html();
@@ -25,25 +25,45 @@ function doMath() {
 	switch (operater) {
 		case "add":
 			mathResult = Number(firstOperand) + Number(display);
-			setDisplay(mathResult)
+			setDisplay(mathResult);
 			break;
 		case "subtract":
 			mathResult = Number(firstOperand) - Number(display);
-			setDisplay(mathResult)
+			setDisplay(mathResult);
 			break;
 		case "multiply":
 			mathResult = Number(firstOperand) * Number(display);
-			setDisplay(mathResult)
+			setDisplay(mathResult);
 			break;
 		case "divide":
 			mathResult = Number(firstOperand) / Number(display);
-			setDisplay(mathResult)
+			setDisplay(mathResult);
 			break;
 	}
+// 
+	// firstOperand = false;
+	
 }
- 
+
 
 function setDisplay(newVal) {
 	display = newVal;
 	$('#display').text(newVal);
 }
+
+function posNeg() {
+	setDisplay(-display);
+}
+
+function percent() {
+	if (firstOperand) {
+		var percentVal = display / 100 * firstOperand;
+		setDisplay(percentVal);
+	}
+	else {
+		setDisplay(display / 100);
+	}
+}
+
+
+

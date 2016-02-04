@@ -9,18 +9,26 @@ var open = require('gulp-open');
 
  
 gulp.task('jade', function() {
-  var YOUR_LOCALS = {};
+  // var YOUR_LOCALS = {};
 
   // console.log("i dunno");
  
-  gulp.src('./app/jade/*.jade')
+  return gulp.src('./app/jade/*.jade')
     .pipe(jade({
-      locals: YOUR_LOCALS,
       pretty: true
     }))
-    .pipe(gulp.dest('./app/'))
-    .pipe(connect.reload());
+    .pipe(gulp.dest('./app'));
+    // .pipe(connect.reload());
 });
+
+
+gulp.task('jade-reload', ['jade'], function() {
+  return gulp.src('./app')
+  .pipe(connect.reload());
+})
+
+gulp.task('jade-and-reload', ['jade', 'jade-reload']);
+
 
 
 gulp.task('sass', function () {
@@ -37,6 +45,7 @@ gulp.task('sass', function () {
 gulp.task('connect', function() {
   connect.server({
     root: 'app',
+    debug: true,
     livereload: true
   });
 });
@@ -44,7 +53,7 @@ gulp.task('connect', function() {
 
 gulp.task('open', function(){
   var options = {
-    uri: 'http://localhost:8080',
+    uri: 'http://localhost:8080/',
   };
   gulp.src(__filename)
   .pipe(open(options));
@@ -52,12 +61,19 @@ gulp.task('open', function(){
 
 
 
+
+
+
 gulp.task('watch', function () {
-  gulp.watch('./app/jade/*.jade', ['jade']);
+  gulp.watch('./app/jade/*.jade', ['jade-and-reload']);
   gulp.watch('./app/scss/**/*.scss', ['sass']);
   gulp.watch('./app/js/*.js', function(event) {
     connect.reload();
-  })
+  });
+  // gulp.watch('./app/*.html', function(event) {
+  //   connect.reload();
+  // });
+  // gulp.watch('./app/*.html', ['reload']);
 });
 
 

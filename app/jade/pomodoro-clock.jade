@@ -20,55 +20,53 @@ html(lang="en")
         <![endif]-->
 
     body
-        div(class="container center-block" style="width: 80%;")
+        div(class="container center-block")
             .row
-                .col-sm-2
-                //- div(class=".col-md-6 .col-md-offset-3" style="background-color:green;")
-                .col-sm-8
-                    h1(class="text-center") Pomodoro Clock
+                .col-md-2
+                .col-md-8
+                    h3(class="pomodoro") Pomodoro Clock
+                    //- .tomato
+                    //- controls
+                    .row(style="margin-bottom: 10px;")
+                        .col-md-4
+                            .row
+                                .col-md-6
+                                    span(id="sessionSetMinutesDisplay")
+                                .col-md-6(class="setting-block")
+                                    p(style="margin-bottom:0px;") minute
+                                    button(class="btn btn-default" id="subtractSessionMinute") -
+                                    button(class="btn btn-default" id="addSessionMinute") +
+                                    p session
+                        .col-md-4
+                            .row
+                                .col-md-6
+                                    span(id="breakSetMinutesDisplay")
+                                .col-md-6(class="setting-block")
+                                    p(style="margin-bottom:0px;") minute
+                                    button(class="btn btn-default" id="subtractBreakMinute") -
+                                    button(class="btn btn-default" id="addBreakMinute") +
+                                    p break
+                        .col-md-1
+                        .col-md-3(id='stopStart') stop / start
                     .row
-                        .col-sm-5
-                            h4 Session
-                                button(class="btn btn-default" id="subtractSessionMinute") -
-                                button(class="btn btn-default" id="addSessionMinute") +
-                        .col-sm-1
-                        .col-sm-5
-                            h4 Break
-                                button(class="btn btn-default" id="subtractBreakMinute") -
-                                button(class="btn btn-default" id="addBreakMinute") +
-                        .col-sm-1
+                        #session-bar-container
+                            div(id="session-bar" class=".col-sm-12")
+                                #session-bar-indicator
+                                    #session-bar-remainder-indicator
+                                        span(id="sessionMinutesDisplay" style="margin-left: 10px;")  
+                                        | :
+                                        span(id="sessionSecondsDisplay") 
                     .row
-                        div(id="session-bar" class=".col-sm-12")
-                            h4
-                                span(id="sessionMinutesDisplay") 25 
-                                |  :
-                                span(id="sessionSecondsDisplay") 00
-                    .row
-                        div(id="break-bar" class=".col-sm-12")
-                            h4
-                                span(id="breakMinutesDisplay") 5 
-                                |  :
-                                span(id="breakSecondsDisplay") 00
-                    .row
-                        .col-sm-2
-                        .col-sm-2
-                            //- button(class="btn btn-default" id="subtractSecond") Sec -
-                            //- button(class="btn btn-default" id="subtractMinute") Min -
-                        .col-sm-4
-                            button(id="start-timer") start the timer
-                        .col-sm-2
-                            //- button(class="btn btn-default" id="addMinute") Min +
-                        .col-sm-2
-                            //- button(class="btn btn-default" id="addSecond") Sec +
+                        #break-bar-container
+                            div(id="break-bar" class=".col-sm-12")
+                                #break-bar-indicator
+                                    #break-bar-remainder-indicator
+                                        span(id="breakMinutesDisplay" style="margin-left: 10px;")  
+                                        | :
+                                        span(id="breakSecondsDisplay") 
+                .col-md-2
 
-                
-        
-
-
-
-
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         script(src="./bower_components/jquery/dist/jquery.js")
         //- script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
         <!-- Include all compiled plugins (below), or include individual files as needed -->

@@ -18,6 +18,31 @@ var clockRunning = false;
 var timeoutID;
 
 
+// function clockMaker(clockContainerDiv) {
+// 	return {
+// 		// console.log($("#" + clockContainerDiv));
+// 		runClock: function () {
+// 			var container = $("#" + clockContainerDiv);
+// 			var bar = container.children();
+// 			var indicator = bar.children();
+// 			var remainderIndicator = indicator.children();
+			
+
+
+// 			console.log(sessionSetTime);
+// 			// indicator.css('width', '80%');
+// 			// remainderIndicator.css('width', '80%');
+// 			// console.log($('#breakMinutesDisplay'))
+// 		}
+// 	}
+// }
+
+// var sessionClock = clockMaker('session-bar-container');
+
+// sessionClock.runClock();
+
+
+
 function convertTime (time) {
 	// console.log("Minutes = " + minutes + "\nseconds = " + seconds);
 	var minutes;
@@ -113,6 +138,19 @@ function runSessionClock() {
 	if (sessionTime === 0) {
 		changeTimeDisplay('session');
 		changeIndicatorBar('session');
+
+		var callbacks = $.Callbacks();
+
+
+		$('#session-bar-remainder-indicator').css('background-color', 'rgba(232, 94, 119, 0)');
+		setTimeout(function() {
+			$('#session-bar-remainder-indicator').css('width', '100%');
+			$('#session-bar-remainder-indicator').css('background-color', 'rgba(232, 94, 119, 1)');
+		}, 1000);
+
+		// switching background
+		$('#session-bar-container').css('background-color', 'rgba(255, 240, 206, 0)')
+		$('#break-bar-container').css('background-color', 'rgba(255, 240, 206, 1)')
 		console.log('ring');
 
 		timeoutID = window.setTimeout(function() {
@@ -138,6 +176,16 @@ function runBreakClock() {
 	if (breakTime === 0) {
 		changeTimeDisplay('break');
 		changeIndicatorBar('break');
+
+		$('#break-bar-remainder-indicator').css('background-color', 'rgba(88, 217, 160, 0)');
+		setTimeout(function() {
+			$('#break-bar-remainder-indicator').css('width', '100%');
+			$('#break-bar-remainder-indicator').css('background-color', 'rgba(88, 217, 160, 1)');
+		}, 1000);
+
+		// switching background
+		$('#break-bar-container').css('background-color', 'rgba(255, 240, 206, 0)')
+		$('#session-bar-container').css('background-color', 'rgba(255, 240, 206, 1)')
 		console.log('ring');
 
 		timeoutID = window.setTimeout(function() {
@@ -173,22 +221,35 @@ function toggleClock() {
 	}
 }
 
-function setSessionBarWidth() {
-	var sessionPercent = Math.round(breakSetTime / sessionSetTime * 1000) / 10 + '%';
-	$('#break-bar-indicator').css('width', sessionPercent)
-	// console.log(sessionPercent);
+// function setSessionBarWidth() {
+// 	var sessionPercent = Math.round(breakSetTime / sessionSetTime * 1000) / 10 + '%';
+// 	$('#break-bar-indicator').css('width', sessionPercent)
+// 	// console.log(sessionPercent);
+// }
+
+function setBarWidth() {
+	if (sessionSetTime > breakSetTime) {
+		$('#session-bar-indicator').css('width', '100%');
+		var breakPercent = Math.round(breakSetTime / sessionSetTime * 1000) / 10 + '%';
+		$('#break-bar-indicator').css('width', breakPercent);
+	}
+	else {
+		$('#break-bar-indicator').css('width', '100%');
+		var sessionPercent = Math.round(sessionSetTime / breakSetTime * 1000) / 10 + '%';
+		$('#session-bar-indicator').css('width', sessionPercent);
+	}
 }
 
 function changeIndicatorBar(clock) {
 	if (clock === 'session') {
 		var percent = sessionTime / sessionSetTime * 100 + '%'; 
 		$('#session-bar-remainder-indicator').css('width', percent);
-		console.log(percent)
+		// console.log(percent)
 	}
 	else {
 		var percent = breakTime / breakSetTime * 100 + '%'; 
 		$('#break-bar-remainder-indicator').css('width', percent);
-		console.log(percent)
+		// console.log(percent)
 	}
 }
 
@@ -198,27 +259,32 @@ changeTimeDisplay('sessionSet');
 changeTimeDisplay('break');
 changeTimeDisplay('breakSet');
 
-setSessionBarWidth();
+// setSessionBarWidth();
+setBarWidth();
 
 $('#stopStart').on('click', toggleClock);
 
 // $('#addSessionMinute').on('click', {clock: "session"}, addTime);
 $('#addSessionMinute').on('click', {clock: "session"}, function(e){
 	addTime(e);
-	setSessionBarWidth(e);
+	// setSessionBarWidth(e);
+	setBarWidth();
 });
 $('#subtractSessionMinute').on('click', {clock: "session"}, function(e){
 	subtractTime(e);
-	setSessionBarWidth(e);
+	// setSessionBarWidth(e);
+	setBarWidth();
 });
 
 $('#addBreakMinute').on('click', {clock: "break"}, function(e){
 	addTime(e);
-	setSessionBarWidth(e);
+	// setSessionBarWidth(e);
+	setBarWidth();
 });
 $('#subtractBreakMinute').on('click', {clock: "break"}, function(e){
 	subtractTime(e);
-	setSessionBarWidth(e);
+	// setSessionBarWidth(e);
+	setBarWidth();
 });
 
 

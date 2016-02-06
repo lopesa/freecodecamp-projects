@@ -28,6 +28,57 @@ $light-warm-grey: rgba(232, 228, 225, 1);
 $white: rgba(255, 255, 255, 1);
 
 
+.alarm {
+	position: fixed;
+	// display: none;
+	opacity: 0;
+	top: 0;
+	left: 0;
+	z-index: -10;
+	width: 100%;
+	height: 100%;
+	background-color: blue;
+
+	animation-duration: 5s;
+  animation-name: flash;
+  animation-timing-function: steps(1);
+}
+
+@keyframes flash {
+	from {
+  	// display: block;
+   //  background-color: blue;
+   opacity: 1;
+   z-index: 10;
+  }
+  // 1% {
+  // 	opacity: 1;
+  // }
+
+	20% {
+		background-color: yellow;
+	}
+
+	40% {
+		background-color: blue;
+	}
+
+	60% {
+		background-color: yellow;
+	}
+
+	80% {
+		background-color: blue;
+	}
+
+	to {
+    // background-color: yellow;
+    // display: none;
+    opacity: 0;
+    z-index: -10;
+  }
+}
+
 .pomodoro {
 	color: $pomodoro-red;
 	display: inline-block;
@@ -72,31 +123,57 @@ $white: rgba(255, 255, 255, 1);
 	color: $white;
 	line-height: 1.2em;
 }
+// .session-bar {
+// 	background-color: $light-red;
+// }
 
-#session-bar-container, #break-bar-container {
-	// background-color: $yellow;
-	border: 1px solid $yellow;
+// .session-bar-indicator {
+// 	background-color: $red-10;
+// }
+
+// .session-bar-remainder-indicator {
+// 	background-color: $red;
+// 	@include running-time-display;
+// }
+
+#session-bar-container {
+	background-color: $yellow;
+	// border: 1px solid $yellow;
 	padding: 10px 10px;
+	transition: all 1s ease-out;
 	// margin-bottom: 10px;
 }
+
+#break-bar-container {
+	// background-color: $yellow;
+	// border: 1px solid $yellow;
+	padding: 10px 10px;
+	transition: all 1s ease-out;
+	// margin-bottom: 10px;
+}
+
 
 #session-bar {
 	background-color: $light-red;
 	// border: 1px solid $red;
 	@include running-time-display;
 }
-
 #session-bar-indicator {
 	background-color: $red-10;
+	transition: all 0.25s ease-in-out;
 	// width: 30%;
 	// height
 }
-
 #session-bar-remainder-indicator {
+	// transition: width 0.25s ease-in-out;
+	transition: background-color 0.2s ease-in;
 	// width: 10%;
 	background-color: $red;
 	// padding-left: 10px;
 }
+
+
+
 
 #break-bar {
 	background-color: $light-green;
@@ -106,12 +183,14 @@ $white: rgba(255, 255, 255, 1);
 
 #break-bar-indicator {
 	background-color: $green-30;
+	transition: all 0.25s ease-in-out;
 	// width: 30%;
 	// height
 }
 
 #break-bar-remainder-indicator {
 	background-color: $green;
+	transition: background-color 0.25s ease-in-out;
 	// padding-left: 10px;
 	// width: 30%;
 	// height

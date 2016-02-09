@@ -15,7 +15,6 @@
 		"// drunk, fix later",
 		"// Magic. Do not touch.",
 		"return 1; # returns 1",
-		"double penetration; // ouch",
 		"/////////////////////////////////////// this is a well commented line",
 		"// I am not sure if we need this, but too scared to delete.",
 		"// I am not responsible of this code.<br>// They made me write it, against my will.",

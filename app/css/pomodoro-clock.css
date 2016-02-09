@@ -1,0 +1,103 @@
+.alarm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background-color: blue;
+  animation-duration: 5s;
+  animation-name: flash;
+  animation-timing-function: steps(1); }
+
+@keyframes flash {
+  from { }
+  20% {
+    background-color: yellow; }
+  40% {
+    background-color: blue; }
+  60% {
+    background-color: yellow; }
+  80% {
+    background-color: blue; }
+  to { } }
+
+.pomodoro {
+  color: #e8264b;
+  margin: 25px 0 15px; }
+
+#stopStart {
+  color: #ff4e43;
+  font-weight: 200;
+  font-size: 1.2em;
+  width: 100%;
+  height: 60px;
+  background-color: #e8e4e1;
+  text-align: center;
+  line-height: 60px;
+  margin-top: 5px;
+  cursor: pointer; }
+  @media (min-width: 750px) {
+    #stopStart {
+      margin-top: 30px; } }
+  #stopStart:hover {
+    background-color: #a9a4a5;
+    color: white; }
+
+#session-bar-container {
+  background-color: #fff0ce;
+  margin-top: 10px;
+  padding: 10px 10px;
+  transition: all 1s ease-out; }
+
+#break-bar-container {
+  padding: 10px 10px;
+  transition: all 1s ease-out; }
+
+#session-bar {
+  background-color: #ffc090;
+  font-size: 8em;
+  font-weight: 100;
+  color: white;
+  line-height: 1.2em; }
+
+#session-bar-indicator {
+  background-color: rgba(255, 78, 67, 0.3);
+  transition: all 0.25s ease-in-out; }
+
+#session-bar-remainder-indicator {
+  transition: background-color 0.2s ease-in;
+  background-color: #ff4e43; }
+
+#break-bar {
+  background-color: #c8e79e;
+  font-size: 8em;
+  font-weight: 100;
+  color: white;
+  line-height: 1.2em; }
+
+#break-bar-indicator {
+  background-color: rgba(67, 199, 255, 0.3);
+  transition: all 0.25s ease-in-out; }
+
+#break-bar-remainder-indicator {
+  background-color: #43c7ff;
+  transition: background-color 0.25s ease-in-out; }
+
+#sessionSetMinutesDisplay {
+  font-weight: 100;
+  color: #ff4e43; }
+
+#breakSetMinutesDisplay {
+  font-weight: 100;
+  color: #43c7ff; }
+
+.setting-block button {
+  color: #a9a4a5; }
+
+.setting-tag {
+  font-size: 3em;
+  vertical-align: middle;
+  font-weight: 100;
+  margin-left: 20px;
+  color: #a9a4a5; }

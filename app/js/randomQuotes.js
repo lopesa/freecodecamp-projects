@@ -38,7 +38,8 @@
 		"// This is crap code but it’s 3 a.m. and I need to get this working."
 	];
 
-	var quoteNumber = getRandomInt(0,29);
+	var numberOfQuotes = allQuotes.length;
+	var quoteNumber = getRandomInt(0,numberOfQuotes-1);
 	var newQuoteNumber;
 
 
@@ -48,53 +49,98 @@
 
 	function setQuote(quoteNumber) {
 		$('#quote').html("<code>" + allQuotes[quoteNumber] + "</code>");
+		$('#twitter').prop("href", function(){
+			var baseUrl = 'https://twitter.com/intent/tweet?text=';
+			// console.log(baseUrl + 'code comment comedy: ' + allQuotes[quoteNumber] + '&url=#');
+			// console.log(quoteNumber);
+			return baseUrl + '#CodeCommentComedy ' + allQuotes[quoteNumber] + '&url=#';
+		});
 	}
 
 	function getNewQuote(newQuoteNumber) {
 		if (newQuoteNumber !== quoteNumber) {
+			// console.log(newQuoteNumber);
 			setQuote(newQuoteNumber);
 			quoteNumber = newQuoteNumber;
 		}
 		else {
-			getNewQuote(getRandomInt(0,29))
+			getNewQuote(getRandomInt(0,numberOfQuotes-1))
+		}
+	}
+
+	function makeTweetButton(quoteNumber) {
+		// var url = 'https://twitter.com/intent/tweet?text=' + allQuotes[quoteNumber] + ' #CodeCommentComedy&url=#';
+		var url = 'https://twitter.com/intent/tweet?text=' + allQuotes[quoteNumber] + '&url=#&hashtags=CodeCommentComedy';
+		var link = $("<a>Tweet</a>");
+		link.prop("class", "twitter-share-button")
+		link.prop("href", url);
+		
+
+		link.css('position', 'relative');
+		link.css('z-index', 5);
+
+		link.css('visibility', 'hidden');
+
+		// if($('.twitter-share-button').length) {
+		// 	$('.twitter-share-button').replaceWith(link);
+		// }
+		// else {
+		// 	$('#new-quote').after(link);
+		// }
+		$('#new-quote').after(link);
+		twttr.widgets.load()
+		// $('#twitter-widget-0').css('opacity', 1);
+		// $('.twitter-share-button').css('position', 'relative');
+		// $('.twitter-share-button').css('z-index', 5);
+	}
+
+	function makeTweetButton2(quoteNumber) {
+
+		function removeAndAddTwitterButton () {
+			twttr.widgets.createShareButton(
+			  ' ',
+			  document.getElementById('twitter'),
+			  {
+			    text: allQuotes[quoteNumber],
+			    hashtags: 'CodeCommentComedy'
+			  }
+			)
+			.then( function( el ) {
+			  window.setTimeout(function(){
+				  $('#twitter').children().first().remove();
+			  }, 100); 
+			});
+		}
+		
+		if($('#twitter').children().length === 0) {
+			twttr.widgets.createShareButton(
+			  ' ',
+			  document.getElementById('twitter'),
+			  {
+			    text: allQuotes[quoteNumber]
+			  }
+			)
+		}
+		
+		else {
+			var first = $('#twitter').children().first();
+			first.css('z-index', 5)
+			removeAndAddTwitterButton()
 		}
 	}
 
 
 
+	$(window).load(function() {
 
-	$(document).ready(function() {
-
-
-		
-		
-		// console.log(allQuotes[quoteNumber]);
-
-		// $(allQuotes[quoteNumber]).appendTo('body');
-
-		// $('#quote').html("<code>" + allQuotes[quoteNumber] + "</code>");
 		setQuote(quoteNumber);
+		makeTweetButton2(quoteNumber);
 
 		$('#new-quote').on('click', function() {
-			getNewQuote(getRandomInt(0,29))
-			// console.log("get a new quote");
+			getNewQuote(getRandomInt(0,numberOfQuotes-1))
+			makeTweetButton2(quoteNumber);
 		})
-
-
-		// $.getJSON( "https://en.wikiquote.org/w/api.php?action=query&prop=extracts&format=json&pageids=5145&callback=?", function( data ) {
-
-		// 	var query = $(data.query.pages[5145].extract).filter('ul').each(function() {
-		// 		// console.log($(this).find('ul'));
-		// 		$(this).find('ul').remove();
-		// 	});
-
-			
-
-		// 	// query.appendTo('body');
-		// 	console.log(query);
-
-		// });
-
+		
 	});
 })(jQuery);
 

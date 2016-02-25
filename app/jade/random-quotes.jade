@@ -8,8 +8,8 @@ html(lang="en")
     title Random Quotes — Free Code Camp project
 
     <!-- Bootstrap -->
-    link(href="./css/bootstrap.min.css" rel="stylesheet")
-    //- link(href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet")
+    //- link(href="./css/bootstrap.min.css" rel="stylesheet")
+    link(href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet")
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,13 +17,24 @@ html(lang="en")
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    //- style(type="text/css").
+    //-     .twitter-share-button {
+    //-         opacity: 0;
+    //-     }
+    style(type="text/css").
+        iframe {
+            position: absolute !important;
+            top: 3px;
+        }
   body
     div(class="container center-block" style="width: 90%;")
         .row
             .col-sm-2
             .col-sm-8
                 h3 Best Code Comments Collection
-                    a(id="new-quote" class="btn btn-success btn-xs" style="margin: 0px 0px 5px 12px") &orarr;
+                    a(id="new-quote" class="btn btn-success btn-xs" style="margin: 0px 10px 5px 12px") &orarr;
+                    span(id="twitter")
+                    //- a(id="twitter" class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world&url=#" style="margin-top:20px") Tweet
                 p(id="quote" style="min-height:100px;")
             .col-sm-2
         .row
@@ -42,6 +53,23 @@ html(lang="en")
                         a(href="http://stackoverflow.com/questions/184618/what-is-the-best-comment-in-source-code-you-have-ever-encountered" target="_blank") http://stackoverflow.com/questions/184618/what-is-the-best-comment-in-source-code-you-have-ever-encountered
             .col-sm-2
     
-    //- script(src="./bower_components/jquery/dist/jquery.js")
-    script(src="./js/jquery.min.js")
+    script(src="./bower_components/jquery/dist/jquery.js")
+    //- script(src="./js/jquery.min.js")
     script(src="./js/randomQuotes.js")
+    script.
+        window.twttr = (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+          if (d.getElementById(id)) return t;
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "https://platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js, fjs);
+         
+          t._e = [];
+          t.ready = function(f) {
+            t._e.push(f);
+          };
+         
+          return t;
+        }(document, "script", "twitter-wjs"));

@@ -1,4 +1,568 @@
 ///////////////////////////////////////////////////////////////////
+// Compare and update inventory stored in a 2d array
+// against a second 2d array of a fresh delivery.
+// Update current inventory item quantity, and if an item
+// cannot be found, add the new item and quantity
+// into the inventory array in alphabetical order.
+///////////////////////////////////////////////////////////////////
+
+
+function inventory(arr1, arr2) {
+    // All inventory must be accounted for or you're fired!
+    arr2.forEach(function(el) {
+        arr1.forEach(function(existingEl) {
+            if (existingEl[1] === el[1]) {
+                existingEl[0] = existingEl[0] + el[0];
+                arr2.splice(arr2.indexOf(el), 1);
+            }
+        })
+    })
+
+    arr1 = arr1.concat(arr2);
+
+    arr1.sort(function(a,b) {
+        if (a[1] > b[1]) {
+            return 1;
+        }
+        if (a[1] < b[1]) {
+            return -1;
+        }
+    })
+
+    return arr1;
+}
+
+// Example inventory lists
+var curInv = [
+    [21, "Bowling Ball"],
+    [2, "Dirty Sock"],
+    [1, "Hair Pin"],
+    [5, "Microphone"]
+];
+
+var newInv = [
+    [2, "Hair Pin"],
+    [3, "Half-Eaten Apple"],
+    [67, "Bowling Ball"],
+    [7, "Toothpaste"]
+];
+
+inventory(curInv, newInv);
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+// Design a cash register drawer function that accepts purchase price
+// as the first argument, payment as the second argument,
+// and cash-in-drawer (cid) as the third argument.
+
+// Return the string "Insufficient Funds" if cash-in-drawer is less
+// than the change due. Return the string "Closed"
+// if cash-in-drawer is equal to the change due.
+
+// Otherwise, return change in coin and bills,
+// sorted in highest to lowest order.
+///////////////////////////////////////////////////////////////////
+
+function drawer(price, cash, cid) {
+  var totalChange = cash - price;
+
+  var change = [];
+  
+  var totalCid = 0;
+
+  cid.forEach(function(el) {
+  	totalCid = totalCid + el[1];
+  });
+
+  totalCid = (Math.round(totalCid * 100)) / 100
+
+  if (totalChange === totalCid) {
+  	return "Closed";
+  }
+
+  // and the winner for ugliest turd of an algorithm is...
+  
+  function makeChange() {
+  	totalChange = (Math.round(totalChange * 100)) / 100;
+
+  	if (totalChange >= 100 && cid[8][1] !== 0) {
+  		var hundreds = Math.floor(totalChange / 100);
+
+  		if (cid[8][1] >= (hundreds * 20)) {
+	  		change.push(["HUNDRED", hundreds * 20])
+	  		totalChange -= hundreds * 20;
+	  		cid[8][1] -= hundreds * 20;
+	  	}
+	  	else {
+	  		change.push(["HUNDRED", cid[8][1]])
+	  		totalChange -= cid[8][1];
+	  		cid[8][1] = 0;
+	  	}
+  		makeChange();
+  	}
+  	
+  	else if (totalChange >= 20 && cid[7][1] !== 0) {
+  		var twenties = Math.floor(totalChange / 20);
+
+  		if (cid[7][1] >= (twenties * 20)) {
+	  		change.push(["TWENTY", twenties * 20])
+	  		totalChange -= twenties * 20;
+	  		cid[7][1] -= twenties * 20;
+	  	}
+	  	else {
+	  		change.push(["TWENTY", cid[7][1]])
+	  		totalChange -= cid[7][1];
+	  		cid[7][1] = 0;
+	  	}
+  		makeChange();
+  	}
+  	
+  	else if (totalChange >= 10 && cid[6][1] !== 0) {
+  		
+  		var tens = Math.floor(totalChange / 10);
+  		
+  		if (cid[6][1] >= tens * 10) {
+	  		change.push(["TEN", tens * 10])
+	  		totalChange -= tens * 10;
+	  		cid[6][1] -= tens * 10;
+	  	}
+	  	else {
+	  		change.push(["TEN", cid[6][1]])
+	  		totalChange -= cid[6][1];
+	  		cid[6][1] = 0;
+	  	}
+  		makeChange();
+  	}
+
+  	else if (totalChange >= 5 && cid[5][1] !== 0) {
+  		
+  		var fives = Math.floor(totalChange / 5);
+  		
+  		if (cid[5][1] >= fives * 5) {
+	  		change.push(["FIVE", fives * 5])
+	  		totalChange -= fives * 5;
+	  		cid[5][1] -= fives * 5;
+	  	}
+	  	else {
+	  		change.push(["FIVE", cid[5][1]])
+	  		totalChange -= cid[5][1];
+	  		cid[5][1] = 0;
+	  	}
+  		makeChange();
+  	}
+
+  	else if (totalChange >= 1 && cid[4][1] !== 0) {
+  		
+  		var ones = Math.floor(totalChange / 1);
+  		
+  		if (cid[4][1] >= ones * 1) {
+	  		change.push(["ONE", ones * 1])
+	  		totalChange -= ones * 1;
+	  		cid[4][1] -= ones * 1;
+	  	}
+	  	else {
+	  		change.push(["ONE", cid[4][1]])
+	  		totalChange -= cid[4][1];
+	  		cid[4][1] = 0;
+	  	}
+  		makeChange();
+  	}
+
+  	else if (totalChange >= .25 && cid[3][1] !== 0) {
+  		
+  		var quarters = Math.floor(totalChange / .25);
+  		
+  		if (cid[3][1] >= quarters * .25) {
+	  		change.push(["QUARTER", quarters * .25])
+	  		totalChange -= quarters * .25;
+	  		cid[3][1] -= quarters * .25;
+	  	}
+	  	else {
+	  		change.push(["QUARTER", cid[3][1]])
+	  		totalChange -= cid[3][1];
+	  		cid[3][1] = 0;
+	  	}
+  		makeChange();
+  	}
+
+  	else if (totalChange >= .1 && cid[2][1] !== 0) {
+  		
+  		var dimes = Math.floor(totalChange / .1);
+  		
+  		if (cid[2][1] >= dimes * .1) {
+	  		change.push(["DIME", dimes * .1])
+	  		totalChange -= dimes * .1;
+	  		cid[2][1] -= dimes * .1;
+	  	}
+	  	else {
+	  		change.push(["DIME", cid[2][1]])
+	  		totalChange -= cid[2][1];
+	  		cid[2][1] = 0;
+	  	}
+  		makeChange();
+  	}
+
+  	else if (totalChange >= .05 && cid[1][1] !== 0) {
+  		
+  		var nickels = Math.floor(totalChange / .05);
+  		
+  		if (cid[1][1] >= nickels * .05) {
+	  		change.push(["NICKEL", nickels * .05])
+	  		totalChange -= nickels * .05;
+	  		cid[1][1] -= nickels * .05;
+	  	}
+	  	else {
+	  		change.push(["NICKEL", cid[1][1]])
+	  		totalChange -= cid[1][1];
+	  		cid[1][1] = 0;
+	  	}
+  		makeChange();
+  	}
+
+  	else if (totalChange >= .01 && cid[0][1] !== 0) {
+  		
+  		var pennies = Math.floor(totalChange / .01);
+  		
+  		if (cid[0][1] >= pennies * .01) {
+	  		change.push(["PENNY", pennies * .01])
+	  		totalChange -= pennies * .01;
+	  		cid[0][1] -= pennies * .01;
+	  	}
+	  	else {
+	  		change.push(["PENNY", cid[0][1]])
+	  		totalChange -= cid[0][1];
+	  		cid[0][1] = 0;
+	  	}
+  		makeChange();
+  	}
+  }
+  
+  makeChange();
+
+  if (totalChange > 0) {
+  	return "Insufficient Funds"
+  }
+  
+  else {
+	  return change;
+	}
+}
+
+// Example cash-in-drawer array:
+// [["PENNY", 1.01],
+// ["NICKEL", 2.05],
+// ["DIME", 3.10],
+// ["QUARTER", 4.25],
+// ["ONE", 90.00],
+// ["FIVE", 55.00],
+// ["TEN", 20.00],
+// ["TWENTY", 60.00],
+// ["ONE HUNDRED", 100.00]]
+
+// drawer(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]])
+
+// drawer(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+
+// drawer(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+
+// drawer(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]])
+
+// drawer(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]])
+
+// drawer(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+
+// drawer(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+
+drawer(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+// Create a function that takes two or more arrays and returns
+// an array of the symmetric difference (△ or ⊕) of the provided arrays.
+///////////////////////////////////////////////////////////////////
+
+function sym(args) {
+
+	// convert arguments into array
+	var argsAsArray = [];
+	var i = 0;
+	while (i < arguments.length) {
+		// console.log(arguments[i])
+		argsAsArray.push(arguments[i]);
+		i++;
+	}
+
+	// get rid of dupes in each array
+	argsAsArray.forEach(function(el) {
+		for (var k = 0; k < el.length; k++) {
+			if (el.indexOf(el[k]) !== el.lastIndexOf(el[k])) {
+				el.splice(k, 1);
+			}
+		}
+	});
+
+	// do the check array to array
+	argsAsArray = argsAsArray.reduce(function(a,b) {
+		var newArray = []
+		var j = 0;
+
+		a.forEach(function(el) {
+			while (j < b.length) {
+				if (el === b[j]) {
+					j = 0;
+					return;
+				}
+				j++;
+			}
+			j = 0;
+			newArray.push(el);
+		});
+		b.forEach(function(el) {
+			while (j < a.length) {
+				if (el === a[j]) {
+					j = 0;
+					return;
+				}
+				j++;
+			}
+			j = 0;
+			newArray.push(el);
+		});
+		return newArray;
+	});
+
+	return argsAsArray;
+}
+
+// sym([1, 2, 3], [5, 2, 1, 4]);
+// sym([1, 2, 5], [2, 3, 5], [3, 4, 5])
+// sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5])
+// sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3])
+
+
+
+
+///////////////////////////////////////////////////////////////////
+// Validate a phone number
+///////////////////////////////////////////////////////////////////
+
+function telephoneCheck(str) {
+
+	var re = /[^0-9-() ]/;
+	var numberRe = /[0-9]/;
+	var parenRe = /[()]/;
+	var lParenRe = /[(]/;
+	var rParenRe = /[)]/;
+
+	// test for any characters other than acceptable ones
+	if (re.test(str)) {
+		return false;
+	}
+	
+	// if there are any parentheses,
+	// make sure they're in the right place
+	// and there is a pair
+	if (parenRe.test(str)) {
+		var lParen = lParenRe.exec(str);
+		var rParen = rParenRe.exec(str);
+
+		if (lParen === null || rParen === null) {
+			return false;
+		}
+		if (lParen.index !== 0 && lParen.index !== 1 && lParen.index !== 2) {
+			return false;
+		}
+		else {
+			if (rParen.index !== lParen.index + 4) {
+				return false;
+			}
+		}
+	}
+
+	// throw out everything but numbers
+	var newStr = '';
+
+	for (var i=0; i<str.length; i++) {
+		if (numberRe.test(str[i])) {
+			newStr = newStr.concat(str[i]);
+		}
+	}
+	
+	// now it's 10 or 11 numbers or it's false
+	if (newStr.length !== 10 && newStr.length !== 11) {
+	  return false;
+	}
+
+	if (newStr.length === 11) {
+		if (newStr[0] !== "1") {
+			return false;
+		}
+	}
+
+	return true;
+}
+// telephoneCheck("5555555555");
+// telephoneCheck("555-555-5555");
+// telephoneCheck("2(757)622-7382")
+// telephoneCheck("55555555")
+// telephoneCheck("(555-555-5555") 
+// telephoneCheck("1 555-555-5555")
+// telephoneCheck("1 (555) 555-5555")
+telephoneCheck("1 555)555-5555")
+
+
+
+
+///////////////////////////////////////////////////////////////////
+// Create a function that sums two arguments together.
+// If only one argument is provided, then return a function
+// that expects one argument and returns the sum.
+//
+// I need to learn how to refactor this so I only write the function
+// to check if arguments are numbers one time. It should be illuminating
+// re: scope.
+///////////////////////////////////////////////////////////////////
+
+
+function add() {
+	
+	for (var i=0; i<arguments.length; i++) {
+		if(typeof arguments[i] !== 'number') {
+			return;
+		}
+	}
+	
+	var argumentZero = arguments[0]
+	
+
+  if (arguments.length === 2) {
+  	return arguments[0] + arguments[1];
+  }
+  else {
+  	return newAdd;
+  }
+
+
+	function newAdd() {
+		for (var i=0; i<arguments.length; i++) {
+			if(typeof arguments[i] !== 'number') {
+				return;
+			}
+		}
+		
+		return argumentZero + arguments[0];
+	}
+}
+
+// add(2,3);
+// add(2)(3)
+// add("http://bit.ly/IqT6zt")
+// add(2, "3")
+add(2)([3])
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+// Check if the predicate (second argument) is truthy
+// on all elements of a collection (first argument).
+///////////////////////////////////////////////////////////////////
+
+function every(collection, pre) {
+  // Is everyone being true?
+  for(var i = 0; i < collection.length; i++) {
+
+		  if(!collection[i][pre]) {
+		  	return false;
+		  }
+  }
+
+  return true;
+}
+
+every([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+// binary translated to text
+///////////////////////////////////////////////////////////////////
+
+
+
+function binaryAgent(str) {
+	str = str.split(' ');
+	var newStr = '';
+
+	for (var i = 0; i < str.length; i++) {
+		var charCode = parseInt(str[i], 2);
+		newStr = newStr.concat(String.fromCharCode(charCode));
+	}
+
+  return newStr;
+}
+
+binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+// shift letters 13 spaces left cipher
+///////////////////////////////////////////////////////////////////
+
+
+function rot13(str) { // LBH QVQ VG!
+  
+	var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+	newStr = '';
+
+	for(var i=0; i<str.length; i++) {
+		
+		function convertLetter() {
+			
+			if (alphabet.indexOf(str[i]) === -1) {
+				return str[i];
+			}
+			else if (alphabet.indexOf(str[i]) - 13 >= 0) {
+				return alphabet[alphabet.indexOf(str[i]) - 13];
+			}
+			else {
+				return alphabet[26 - (13 - alphabet.indexOf(str[i]))];
+			}
+		}
+		
+		newStr = newStr.concat(convertLetter(str[i]));
+
+	}
+  return newStr;
+}
+
+// Change the inputs below to test
+rot13("SERR PBQR PNZC");
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
 // Flatten a nested array. You must account for varying levels of nesting.
 ///////////////////////////////////////////////////////////////////
 

@@ -2,12 +2,10 @@
   "name": "Free_Code_Camp_Projects",
   "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "gulp-jade": "^1.1.0",
-    "gulp-open": "^1.0.0"
-  },
   "devDependencies": {
-    "gulp-connect": "^2.2.0",
-    "gulp-sass": "^2.1.0"
+    "gulp-connect": "^2.3.1",
+    "gulp-jade": "^1.1.0",
+    "gulp-open": "^1.0.0",
+    "gulp-sass": "^2.2.0"
   }
 }

@@ -1,6 +1,6 @@
 (function($) {
 	// set times and running times in microseconds
-	var sessionSetTime= 3600000;
+	var sessionSetTime= 1500000;
 	var breakSetTime = 600000;
 
 	var sessionTime = sessionSetTime;
@@ -112,10 +112,8 @@
 			changeTimeDisplay('session');
 			changeIndicatorBar('session');
 
-			$('#session-bar-remainder-indicator').css('background-color', 'rgba(232, 94, 119, 0)');
 			setTimeout(function() {
 				$('#session-bar-remainder-indicator').css('width', '100%');
-				$('#session-bar-remainder-indicator').css('background-color', 'rgba(232, 94, 119, 1)');
 			}, 1000);
 
 			// switching background - yellow
@@ -147,10 +145,8 @@
 			changeTimeDisplay('break');
 			changeIndicatorBar('break');
 
-			$('#break-bar-remainder-indicator').css('background-color', 'rgba(88, 217, 160, 0)');
 			setTimeout(function() {
 				$('#break-bar-remainder-indicator').css('width', '100%');
-				$('#break-bar-remainder-indicator').css('background-color', 'rgba(88, 217, 160, 1)');
 			}, 1000);
 
 			// switching background

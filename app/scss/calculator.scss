@@ -11,6 +11,7 @@ $light-green: rgba(171, 236, 207, 1);
 $lime-green: rgba(141, 225, 91, 1);
 $light-lime-green: rgba(201, 241, 177, 1);
 
+$darker-warm-grey: rgba(149, 144, 145, 1);
 $warm-grey: rgba(169, 164, 165, 1);
 $light-warm-grey: rgba(232, 228, 225, 1);
 
@@ -34,20 +35,20 @@ body {
 	// background-color: $light-warm-grey;
 	margin-top: -20%;
 
-	cursor: pointer;
 
 	#display {
 		font-family: sans-serif;
-		font-size: 4em;
+		font-size: 1.2em;
 		font-weight: 100;
-		height: 100px;
+		height: 40px;
 		width: 100%;
-		line-height: 100px;
+		line-height: 40px;
 		text-align: right;
 		padding: 5px;
-		background-color: $warm-grey;
+		// background-color: $warm-grey;
 		color: $white;
-		margin-bottom: 10px
+		margin-bottom: 10px;
+		border: 1px solid $light-warm-grey;
 	}
 
 	.row {
@@ -59,9 +60,11 @@ body {
 		button {
 			font-size: 3em;
 			font-weight: 100;
-			color: $blue;
+			color: $warm-grey;
 			background-color: $light-warm-grey;
 			height: 80px;
+			cursor: pointer;
+			border: 1px solid $white;
 
 			transition: all 0.3s ease-out;
 
@@ -73,9 +76,9 @@ body {
 				width: 160px;
 			}
 			&:hover {
-				background-color: $blue;
-				color: $white;
-				transition: all 0.2s ease-out;
+				background-color: $darker-warm-grey;
+				// color: $white;
+				transition: all 0.5s ease-;
 			}
 			&:active {
 				background-color: $red;

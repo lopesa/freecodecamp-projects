@@ -49,17 +49,10 @@
 
 	function setQuote(quoteNumber) {
 		$('#quote').html("<code>" + allQuotes[quoteNumber] + "</code>");
-		$('#twitter').prop("href", function(){
-			var baseUrl = 'https://twitter.com/intent/tweet?text=';
-			// console.log(baseUrl + 'code comment comedy: ' + allQuotes[quoteNumber] + '&url=#');
-			// console.log(quoteNumber);
-			return baseUrl + '#CodeCommentComedy ' + allQuotes[quoteNumber] + '&url=#';
-		});
 	}
 
 	function getNewQuote(newQuoteNumber) {
 		if (newQuoteNumber !== quoteNumber) {
-			// console.log(newQuoteNumber);
 			setQuote(newQuoteNumber);
 			quoteNumber = newQuoteNumber;
 		}
@@ -69,32 +62,17 @@
 	}
 
 	function makeTweetButton(quoteNumber) {
-		// var url = 'https://twitter.com/intent/tweet?text=' + allQuotes[quoteNumber] + ' #CodeCommentComedy&url=#';
-		var url = 'https://twitter.com/intent/tweet?text=' + allQuotes[quoteNumber] + '&url=#&hashtags=CodeCommentComedy';
-		var link = $("<a>Tweet</a>");
-		link.prop("class", "twitter-share-button")
-		link.prop("href", url);
-		
 
-		link.css('position', 'relative');
-		link.css('z-index', 5);
-
-		link.css('visibility', 'hidden');
-
-		// if($('.twitter-share-button').length) {
-		// 	$('.twitter-share-button').replaceWith(link);
-		// }
-		// else {
-		// 	$('#new-quote').after(link);
-		// }
-		$('#new-quote').after(link);
-		twttr.widgets.load()
-		// $('#twitter-widget-0').css('opacity', 1);
-		// $('.twitter-share-button').css('position', 'relative');
-		// $('.twitter-share-button').css('z-index', 5);
-	}
-
-	function makeTweetButton2(quoteNumber) {
+		function addTweetButton () {
+			twttr.widgets.createShareButton(
+			  ' ',
+			  document.getElementById('twitter'),
+			  {
+			    text: allQuotes[quoteNumber],
+			    hashtags: 'CodeCommentComedy'
+			  }
+			)
+		}
 
 		function removeAndAddTwitterButton () {
 			twttr.widgets.createShareButton(
@@ -117,7 +95,8 @@
 			  ' ',
 			  document.getElementById('twitter'),
 			  {
-			    text: allQuotes[quoteNumber]
+			    text: allQuotes[quoteNumber],
+			    hashtags: 'CodeCommentComedy'
 			  }
 			)
 		}
@@ -129,16 +108,14 @@
 		}
 	}
 
-
-
 	$(window).load(function() {
 
 		setQuote(quoteNumber);
-		makeTweetButton2(quoteNumber);
+		makeTweetButton(quoteNumber);
 
 		$('#new-quote').on('click', function() {
 			getNewQuote(getRandomInt(0,numberOfQuotes-1))
-			makeTweetButton2(quoteNumber);
+			makeTweetButton(quoteNumber);
 		})
 		
 	});

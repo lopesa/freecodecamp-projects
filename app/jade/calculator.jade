@@ -20,33 +20,35 @@ html(lang="en")
         <![endif]-->
 
     body
-        .calc
-            #display 0
-            .row
-                button(class="single" onClick="setDisplay(0)") AC
-                button(class="single" onClick="posNeg()") +/-
-                button(class="single" onClick="percent()") %
-                button(class="single" onClick="setOperater('divide')") &divide;
-            .row
-                button(class="single" onClick="enterNumber(this)") 7
-                button(class="single" onClick="enterNumber(this)") 8
-                button(class="single" onClick="enterNumber(this)") 9
-                button(class="single" onClick="setOperater('multiply')") &times;
-            .row
-                button(class="single" onClick="enterNumber(this)") 4
-                button(class="single" onClick="enterNumber(this)") 5
-                button(class="single" onClick="enterNumber(this)") 6
-                button(class="single" onClick="setOperater('subtract')") -
-            .row
-                button(class="single" onClick="enterNumber(this)") 1
-                button(class="single" onClick="enterNumber(this)") 2
-                button(class="single" onClick="enterNumber(this)") 3
-                //- button(class="single" onClick="setOperater(+)") +
-                button(class="single" onClick="setOperater('add')") +
-            .row
-                button(class="double" onClick="enterNumber(this)") 0
-                button(class="single" onClick="enterNumber(this)") .
-                button(class="single" onClick="doMath()") =
+        .calc-outer
+            .calc
+                #display
+                .row
+                    button(class="half small-text" onClick="allClear()") AC
+                    button(class="half small-text" onClick="backSpace()") &lsaquo;
+                    button(class="single small-text" onClick="ans()") ans
+                    button(class="half small-text") %
+                    button(class="half small-text") +/-
+                    button(class="single" onClick="enterItem(this)") /
+                .row
+                    button(class="single" onClick="enterItem(this)") 7
+                    button(class="single" onClick="enterItem(this)") 8
+                    button(class="single" onClick="enterItem(this)") 9
+                    button(class="single" onClick="enterItem(this)") *
+                .row
+                    button(class="single" onClick="enterItem(this)") 4
+                    button(class="single" onClick="enterItem(this)") 5
+                    button(class="single" onClick="enterItem(this)") 6
+                    button(class="single" onClick="enterItem(this)") -
+                .row
+                    button(class="single" onClick="enterItem(this)") 1
+                    button(class="single" onClick="enterItem(this)") 2
+                    button(class="single" onClick="enterItem(this)") 3
+                    button(class="single" onClick="enterItem(this)") +
+                .row
+                    button(class="double" onClick="enterItem(this)") 0
+                    button(class="single" onClick="enterItem(this)") .
+                    button(class="single" onClick="evaluateEquation()") =
                 
 
 

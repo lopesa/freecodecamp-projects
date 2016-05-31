@@ -67,9 +67,16 @@ gulp.task('open', function(){
 gulp.task('watch', function () {
   gulp.watch('./app/jade/*.jade', ['jade-and-reload']);
   gulp.watch('./app/scss/**/*.scss', ['sass']);
-  gulp.watch('./app/js/*.js', function(event) {
-    connect.reload();
+  gulp.watch('./app/js/*.js', function(file) {
+    // console.log('farts?');
+    // console.log(file);
+    // http://stackoverflow.com/questions/22989009/why-doesnt-live-reload-work-with-gulp-connect
+    gulp.src(file.path)
+    .pipe(connect.reload());
   });
+  
+  // gulp.watch('./app/js/*.js').pipe(connect.reload());
+  
   // gulp.watch('./app/*.html', function(event) {
   //   connect.reload();
   // });

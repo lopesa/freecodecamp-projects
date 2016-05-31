@@ -1,53 +1,93 @@
-var equation = '';
-var previousAnswer = '';
+var display = '',
+equation = [],
+previousAnswer,
+currentInput = '',
 
 
-var setDisplay = function setDisplay(newVal) {
-	$('#display').text(newVal);
-};
 
-var enterItem = function enterItem(elem) {
-	var value = $(elem).html();
-	equation = equation.concat(value);
-	setDisplay(equation);
-};
+setDisplay = function setDisplay(value) {
+	// console.log(typeof(value));
+	if (typeof(value) === 'object') {
+		value = value.join('');
+	}
+	display = value;
+	// console.log(value);
+	$('#display').text(display);
+},
 
-var evaluateEquation = function evaluateEquation() {
+enterItem = function enterItem(elem) {
+	var operators = /[*/+-.]/,
+		thisKey = $(elem).html();
+
+		// console.log(thisKey);
+		// console.log(currentInput);
+
+	if (operators.test(thisKey)) {
+		// console.log(true);
+
+		currentInput = parseInt(currentInput, 10);
+
+		equation.push(currentInput, thisKey);
+		
+		currentInput = '';
+		
+		console.log(equation);
+	}
+
+	else {
+		currentInput = currentInput.concat(thisKey);
+		console.log(currentInput);
+	}
+	// var value = $(elem).html();
+	// console.log(value);
+	// equation.push($(elem).html());
+	// console.log(equation);
+	setDisplay(display.concat(thisKey));
+},
+
+evaluateEquation = function evaluateEquation() {
 	var evaluatedEquation;
 	
 	// convert percents to decimal equivalents
-	makePercents();
+	// makePercents();
 
-	evaluatedEquation = eval(equation)
+	evaluatedEquation = eval(equation.join(''))
+	// console.log(evaluatedEquation);
 
 	setDisplay(evaluatedEquation);
-	previousAnswer = evaluatedEquation.toString();
-	equation = '';
-};
+	previousAnswer = evaluatedEquation;
+	equation = [];
+},
 
-var allClear = function allClear() {
-	equation = '';
+equals = function equals() {
+	equation.push(currentInput);
+	evaluateEquation();
+},
+
+allClear = function allClear() {
+	equation = [];
 	setDisplay(equation);
-}
+},
 
-var backSpace = function backSpace() {
-	equation = equation.slice(0, equation.length-1)
+backSpace = function backSpace() {
+
+	// equation = equation.slice(0, equation.length-1)
 	setDisplay(equation);
-}
+},
 
-var ans = function ans() {
+ans = function ans() {
 	equation = previousAnswer;
 	setDisplay(equation);
-}
+},
 
-var equationToArray = function equationToArray() {
+equationToArray = function equationToArray() {
 	var re = /([^0-9\(\)\.%])/;
 	// console.log(equation.split(re));
 	return equation.split(re);
-};
+},
 
 
-var posNeg = function posNeg() {
+posNeg = function posNeg() {
 	console.log(equationToArray());
 	
 	var newEntry = equationToArray().pop();
@@ -71,9 +111,9 @@ var posNeg = function posNeg() {
 	equation = equation.join('');
 
 	setDisplay(equation);
-}
+},
 
-var enterPercent = function enterPercent() {
+enterPercent = function enterPercent() {
 	if (equation.charAt(equation.length - 1) === '*') {
 		equation = 'Wrong Format';
 	}
@@ -81,9 +121,9 @@ var enterPercent = function enterPercent() {
 		equation = equation.concat('%');
 	}
 	setDisplay(equation);
-}
+},
 
-var makePercents = function makePercents(){
+makePercents = function makePercents(){
 	var newEntry = equationToArray().pop();
 	var baseEntry = equationToArray().shift();
 	
@@ -98,4 +138,4 @@ var makePercents = function makePercents(){
 	})
 
 	equation = equation.join('');
-}
+};

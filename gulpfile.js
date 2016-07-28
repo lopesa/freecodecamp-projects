@@ -69,10 +69,13 @@ gulp.task('watch', function () {
   gulp.watch('./app/scss/**/*.scss', ['sass']);
   gulp.watch('./app/js/*.js', function(file) {
     // console.log('farts?');
-    // console.log(file);
+    console.log(file);
     // http://stackoverflow.com/questions/22989009/why-doesnt-live-reload-work-with-gulp-connect
-    gulp.src(file.path)
+    return gulp.src('./app')
     .pipe(connect.reload());
+
+    // gulp.src(file.path)
+    // .pipe(connect.reload());
   });
   
   // gulp.watch('./app/js/*.js').pipe(connect.reload());

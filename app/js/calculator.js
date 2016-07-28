@@ -3,16 +3,19 @@ equation = [],
 previousAnswer,
 currentInput = '',
 operatorsOnly = /[*/+-]/,
+signChangeStarted = false,
 
 
 
 setDisplay = function setDisplay(value) {
 	// console.log(typeof(value));
+	
 	if (typeof(value) === 'object') {
 		value = value.join('');
 	}
 	display = value;
-	// console.log(value);
+	console.log(display);
+	
 	$('#display').text(display);
 },
 
@@ -20,29 +23,36 @@ enterItem = function enterItem(elem) {
 	var operators = /[*/+-.]/,
 		thisKey = $(elem).html();
 
-		// console.log(thisKey);
-		// console.log(currentInput);
+		
+		console.log('equation', equation);
 
 	if (operators.test(thisKey)) {
-		// console.log(true);
+
+		
+		if (signChangeStarted === true) {
+			setDisplay(display.concat(')'));
+			signChangeStarted = false;
+		}
 
 		currentInput = parseInt(currentInput, 10);
+		
+		// console.log('currentInput', currentInput);
 
 		equation.push(currentInput, thisKey);
+
+		// console.log('equation', equation);
 		
 		currentInput = '';
 		
-		console.log(equation);
+		// console.log(equation);
 	}
 
 	else {
+		// console.log('signChangeStarted', signChangeStarted);
 		currentInput = currentInput.concat(thisKey);
 		// console.log(currentInput);
 	}
-	// var value = $(elem).html();
-	// console.log(value);
-	// equation.push($(elem).html());
-	// console.log(equation);
+
 	setDisplay(display.concat(thisKey));
 },
 
@@ -91,8 +101,11 @@ backSpace = function backSpace() {
 },
 
 ans = function ans() {
-	equation = previousAnswer;
-	setDisplay(equation);
+	// console.log('equation: ', equation);
+	currentInput = previousAnswer.toString();
+	// equation.push(previousAnswer);
+	// console.log('equation: ', equation);
+	setDisplay(currentInput);
 },
 
 // equationToArray = function equationToArray() {
@@ -107,18 +120,19 @@ posNeg = function posNeg() {
 	
 		findLastOp = function findLastOp() {
 		// console.log(display.length)
-		for (var i = display.length-1; i >= 0; i--) {
-			// console.log('charAt ' + i + ': ', display.charAt(i))
-			if (display[i].search(operatorsOnly) !== -1) {
-				// console.log(display[i].search(operatorsOnly))
-				// console.log(i);
-				return i;
+			for (var i = display.length-1; i >= 0; i--) {
+				// console.log('charAt ' + i + ': ', display.charAt(i))
+				if (display[i].search(operatorsOnly) !== -1) {
+					// console.log(display[i].search(operatorsOnly))
+					// console.log(i);
+					return i;
+				}
 			}
 		}
-	}
 
 	if (currentInput === '') {
 		currentInput = '-';
+		signChangeStarted = true;
 		setDisplay(display.concat('(-'))
 		
 	} else if (currentInput > 0) {
@@ -163,32 +177,6 @@ posNeg = function posNeg() {
 		console.log(currentInput);
 	}	
 },
-
-// posNeg = function posNeg() {
-// 	console.log(equationToArray());
-	
-// 	var newEntry = equationToArray().pop();
-	
-// 	// if it's already negative, remove the parentheses
-// 	if (newEntry[0] === '(') {
-// 		newEntry = newEntry.slice(1,3);
-// 	}
-	
-// 	var oppositeNewEntry = 0 - newEntry;
-
-// 	// if it's now negative add the parentheses
-// 	if (oppositeNewEntry < 0) {
-// 		oppositeNewEntry = '(' + oppositeNewEntry + ')';
-// 	}
-
-
-// 	equation = equationToArray();
-// 	equation.splice(-1,1);
-// 	equation.push(oppositeNewEntry);
-// 	equation = equation.join('');
-
-// 	setDisplay(equation);
-// },
 
 enterPercent = function enterPercent() {
 	if (equation.charAt(equation.length - 1) === '*') {

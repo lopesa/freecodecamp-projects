@@ -1,4 +1,6 @@
-(function($) {
+import $ from 'jquery';
+
+// (function($) {
 	// set times and running times in microseconds
 	var sessionSetTime= 1500000;
 	var breakSetTime = 600000;
@@ -264,4 +266,4 @@
 		setBarWidth();
 	});
 
-})(jQuery);
+// })(jQuery);

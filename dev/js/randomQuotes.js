@@ -1,10 +1,6 @@
-(function($) {
-	// quotes from here (curation):
-	// http://www.javacodegeeks.com/2011/07/funny-source-code-comments.html
-	// originally from here:
-	// http://stackoverflow.com/questions/184618/what-is-the-best-comment-in-source-code-you-have-ever-encountered
+import $ from 'jquery';
 
-	var allQuotes = [
+var allQuotes = [
 		"// sometimes I believe compiler ignores all my comments",
 
 		"Exception up = new Exception('Something is really wrong.');<br>throw up; //ha ha",
@@ -108,18 +104,18 @@
 		}
 	}
 
-	$(window).load(function() {
+window.onload = function() {
 
-		setQuote(quoteNumber);
+
+	setQuote(quoteNumber);
+	makeTweetButton(quoteNumber);
+
+	$('#new-quote').on('click', function() {
+		getNewQuote(getRandomInt(0,numberOfQuotes-1))
 		makeTweetButton(quoteNumber);
-
-		$('#new-quote').on('click', function() {
-			getNewQuote(getRandomInt(0,numberOfQuotes-1))
-			makeTweetButton(quoteNumber);
-		})
-		
-	});
-})(jQuery);
+	})
+	
+};
 
 
 

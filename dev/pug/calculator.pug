@@ -21,7 +21,7 @@ html(lang="en")
 
     body
         .calc-outer
-            .calc
+            //- .calc
                 #display
                 .row
                     button(class="half small-text" onClick="allClear()") AC
@@ -51,14 +51,44 @@ html(lang="en")
                     button(class="single" onClick="equals()") =
                     //- button(class="single" onClick="evaluateEquation()") =
                     //- button(class="single" onClick="makePercents()") =
+            .calc
+                #display
+                .row
+                    button(class="half small-text jsAllClear") AC
+                    button(class="half small-text jsBackSpace") &lsaquo;
+                    button(class="single small-text jsAns") ans
+                    button(class="half small-text jsEnterPercent") %
+                    button(class="half small-text jsPosNeg") +/-
+                    button(class="single jsEnterItem") /
+                .row
+                    button(class="single jsEnterItem") 7
+                    button(class="single jsEnterItem") 8
+                    button(class="single jsEnterItem") 9
+                    button(class="single jsEnterItem") *
+                .row
+                    button(class="single jsEnterItem") 4
+                    button(class="single jsEnterItem") 5
+                    button(class="single jsEnterItem") 6
+                    button(class="single jsEnterItem") -
+                .row
+                    button(class="single jsEnterItem") 1
+                    button(class="single jsEnterItem") 2
+                    button(class="single jsEnterItem") 3
+                    button(class="single jsEnterItem") +
+                .row
+                    button(class="double jsEnterItem") 0
+                    button(class="single jsEnterItem") .
+                    button(class="single jsEquals") =
+                    //- button(class="single" onClick="evaluateEquation()") =
+                    //- button(class="single" onClick="makePercents()") =
                 
 
 
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        script(src="./bower_components/jquery/dist/jquery.js")
-        //- script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        //- <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        //- script(src="./bower_components/jquery/dist/jquery.js")
+        //- //- script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
+        //- <!-- Include all compiled plugins (below), or include individual files as needed -->
         //- script(src="./bower_components/bootstrap/dist/js/bootstrap.js")
         script(src="./js/calculator.js")
         //- script(src="js/bootstrap.min.js")

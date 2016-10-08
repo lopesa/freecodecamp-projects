@@ -1,0 +1,56 @@
+@mixin flexy($direction) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: $direction;
+}
+
+body {
+	@include flexy(row);
+	height: 100vh;
+}
+
+// .label {
+	
+// }
+
+.chart-holder {
+	width: 80%;
+	height: 80vh;
+	position: relative;
+	// @include flexy(row);
+}
+.left {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 10%;
+	height: 90%;
+	background-color: blue;
+}
+
+.bottom {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 90%;
+	height: 10%;
+	background-color: red;
+}
+
+.chart {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 90%;
+	height: 90%;
+	background-color: green;
+	@include flexy(row);
+	align-items: flex-end;
+
+	div {
+		background-color: white;
+		opacity: 0.5;
+		flex-grow: 1;
+	}
+}
